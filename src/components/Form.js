@@ -7,7 +7,8 @@ import Dashboard from './dashboard';
 export default function Form() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showLoginForm, setShowLoginForm] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // new state variable
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isRegistered, setIsRegistered] = useState(false);// new state variable
   const onSubmit = (data) => {
     console.log(JSON.stringify(data));
     console.log(data);
@@ -22,6 +23,7 @@ export default function Form() {
       })
       .then(data => {
         console.log('Registration successful:', data);
+        setIsRegistered(true);
       })
       .catch(error => {
         console.error('Error registering user:', error);
@@ -39,6 +41,7 @@ export default function Form() {
       if (response.data.success == 1) {
         setIsLoggedIn(true); // set isLoggedIn to true if login is successful
         console.log('login successful:', data);
+        
       }else{
         console.log('Invalid login credentials');
       }
@@ -90,8 +93,9 @@ export default function Form() {
 
                 <button className='btn' type='submit'>Sign Up</button>
               </form>
+              
             )}
-
+                {isRegistered && <span style={{ color: 'green', fontWeight: 'bold', fontSize: '24px' }}>Registration successful!</span>}
             <p>{showLoginForm ? 'Don\'t have an account?' : 'Already have an account?'} <a href='#' onClick={() => setShowLoginForm(!showLoginForm)}>{showLoginForm ? 'Sign Up' : 'Sign In'}</a></p>
           </div>
           <div className='col-2'>
